@@ -1,3 +1,9 @@
 spring:
   application:
     name: weather
+  docker:
+    compose:
+      file: weather/compose.yaml
+      lifecycle-management: start-and-stop
+  liquibase:
+    enabled: false
