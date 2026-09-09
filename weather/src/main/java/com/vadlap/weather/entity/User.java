@@ -1,4 +1,4 @@
-package com.vadlap.weather.Entity;
+package com.vadlap.weather.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
