@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AmplicodePersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="weather" name="Default">
+        <packages>
+          <package value="com.vadlap.weather" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+  <component name="MarkedApplicationProperties">
+    <option name="files">
+      <list>
+        <option value="file://$PROJECT_DIR$/weather/src/main" />
+        <option value="file://$PROJECT_DIR$/weather/src" />
+      </list>
+    </option>
+  </component>
+</project>
