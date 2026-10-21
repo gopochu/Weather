@@ -4,12 +4,11 @@ import com.vadlap.weather.common.UserAlreadyExistsException;
 import com.vadlap.weather.common.InvalidCredentialsException;
 import com.vadlap.weather.entity.Session;
 import com.vadlap.weather.entity.User;
+import com.vadlap.weather.entity.dto.RegistrationRequest;
 import com.vadlap.weather.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,19 +16,27 @@ import java.util.UUID;
 public class RegAndAuthService {
     private final SessionService service;
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    RegAndAuthService(SessionService service, UserRepository repository) {
+    RegAndAuthService(SessionService service, UserRepository repository, PasswordEncoder passwordEncoder) {
         this.service = service;
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
-    public UUID register(User user) {
+    public UUID register(RegistrationRequest request) {
+        User user = new User(request.username(), request.password());
         if (repository.existsByUsername(user.getUsername())) {
             throw new UserAlreadyExistsException("user already exists");
         }
 
-        User savedUser = repository.save(user);
+        User newUser = new User(
+            user.getUsername(),
+            passwordEncoder.encode(user.getPassword())
+        );
+
+        User savedUser = repository.save(newUser);
         return service.createSession(savedUser.getId());
     }
 
@@ -39,7 +46,7 @@ public class RegAndAuthService {
             throw new InvalidCredentialsException("Incorrect password or user does not exist");
         }
 
-        if (!Objects.equals(password, user.get().getPassword())) {
+        if (!passwordEncoder.matches(password, user.get().getPassword())) {
             throw new InvalidCredentialsException("Incorrect password or user does not exist");
         }
 

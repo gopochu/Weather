@@ -1,9 +1,7 @@
-package com.vadlap.weather.entity;
+package com.vadlap.weather.entity.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Value;
 
 public record RegistrationRequest(
     @NotBlank

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface SessionRepository extends JpaRepository<Session, UUID> {
 
-    Optional<Session> getByUserId(UUID userId);
+    Optional<Session> getByUserId(Integer userId);
 
     void deleteById(UUID sessionId);
 

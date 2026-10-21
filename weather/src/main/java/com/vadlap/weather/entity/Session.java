@@ -1,8 +1,6 @@
 package com.vadlap.weather.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +13,18 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="sessions")
 public class Session {
-//    @GeneratedValue
     @Id
+    @Column(nullable = false)
     private UUID sessionId;
-    private UUID userId;
+
+    @Column(nullable = false)
+    private Integer userId;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Column(nullable = false)
     private LocalDateTime expiresAt;
 }

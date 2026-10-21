@@ -2,14 +2,11 @@ package com.vadlap.weather.service;
 
 import com.vadlap.weather.entity.Session;
 import com.vadlap.weather.repository.SessionRepository;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class SessionService {
@@ -20,15 +17,12 @@ public class SessionService {
         this.repository = repository;
     }
 
-    public UUID createSession(UUID userId) {
+    public UUID createSession(Integer userId) {
         Optional<Session> currentSession = getSessionByUser(userId);
 
         if (currentSession.isPresent()) {
             return currentSession.get().getSessionId();
         }
-//        else if (currentSession.isPresent() && !currentSession.get().getExpiresAt().isAfter(LocalDateTime.now())) {
-//            repository.delete(currentSession.get());
-//        }
 
         UUID sessionId = UUID.randomUUID();
         Session session = new Session(sessionId, userId, LocalDateTime.now(), LocalDateTime.now().plusHours(24));
@@ -47,7 +41,7 @@ public class SessionService {
         return null;
     }
 
-    public Optional<Session> getSessionByUser(UUID userId) {
+    public Optional<Session> getSessionByUser(Integer userId) {
         Session session = repository.getByUserId(userId).orElse(null);
 
         if (session != null && session.getExpiresAt().isAfter(LocalDateTime.now())) {
@@ -64,11 +58,4 @@ public class SessionService {
             repository.delete(session.get());
         }
     }
-
-//    public void removeSession(UUID userId) {
-//        Optional<Session> session = repository.getByUserId(userId);
-//        if (session.isPresent()) {
-//            repository.removeByUserId(userId);
-//        }
-//    }
 }

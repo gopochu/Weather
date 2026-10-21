@@ -3,8 +3,11 @@ spring:
     name: weather
   docker:
     compose:
-      file: weather/compose.yaml
+      file: compose.yaml
       lifecycle-management: start-and-stop
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  jpa:
+    hibernate:
+      ddl-auto: none
