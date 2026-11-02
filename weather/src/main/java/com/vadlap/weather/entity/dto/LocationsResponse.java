@@ -1,6 +1,6 @@
 package com.vadlap.weather.entity.dto;
 
-public record LocationResponse(
+public record LocationsResponse(
         String name,
         double temp
 ) {}

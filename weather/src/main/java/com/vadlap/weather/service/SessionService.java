@@ -54,8 +54,6 @@ public class SessionService {
 
     public void removeSession(UUID sessionId) {
         Optional<Session> session = repository.findById(sessionId);
-        if (session.isPresent()) {
-            repository.delete(session.get());
-        }
+        session.ifPresent(repository::delete);
     }
 }

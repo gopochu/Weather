@@ -1,12 +1,25 @@
 package com.vadlap.weather.entity.dto;
 
-public record WeatherDetails(
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public record WeatherMain(
     double temp,
-    double feels_like,
-    double temp_min,
-    double temp_max,
+
+    @JsonProperty("feels_like")
+    double feelsLike,
+
+    @JsonProperty("temp_min")
+    double tempMin,
+
+    @JsonProperty("temp_max")
+    double tempMax,
+
     int pressure,
     int humidity,
-    int sea_level,
-    int grnd_level
+
+    @JsonProperty("sea_level")
+    int seaLevel,
+
+    @JsonProperty("grnd_level")
+    int grndLevel
 ) {}

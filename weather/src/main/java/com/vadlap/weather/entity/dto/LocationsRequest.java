@@ -1,4 +1,10 @@
 package com.vadlap.weather.entity.dto;
 
-public record LocationsRequest() {
-}
+import java.math.BigDecimal;
+import java.util.UUID;
+
+public record LocationsRequest(
+        UUID sessionId,
+        double latitude,
+        double longitude
+) {}
