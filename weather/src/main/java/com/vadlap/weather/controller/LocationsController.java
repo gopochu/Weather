@@ -17,7 +17,8 @@ public class LocationsController {
     private final LocationsService service;
 
     @PostMapping
-    public ResponseEntity<LocationsResponse> addLocation(@Valid @RequestBody LocationsRequest request) throws IOException, InterruptedException {
+    public ResponseEntity<LocationsResponse> addLocation(@Valid @RequestBody LocationsRequest request)
+            throws IOException, InterruptedException {
         return service.addLocation(request.sessionId(), request.latitude(), request.longitude());
     }
 }
